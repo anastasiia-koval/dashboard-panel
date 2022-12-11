@@ -3,7 +3,6 @@ import Button from "../../components/Button/Button";
 import { UserDataProps } from "../../globalInterfaces";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import Spinner from "react-bootstrap/Spinner";
 
 interface TableProps {
   userData: Array<UserDataProps>;
@@ -34,12 +33,9 @@ const Table = ({ userData, handleDelete }: TableProps) => {
     setFilteredArray(filteredCopy);
   };
 
-  if (!filteredArray) {
-    return <Spinner animation="border" />;
-  }
   return (
     <>
-      {filteredArray.length === 0 ? (
+      {filteredArray && filteredArray.length === 0 ? (
         <p style={{ textAlign: "center", marginTop: "20px" }}>
           Ooops, seems like you don't have any user data. That's time to create
           one!

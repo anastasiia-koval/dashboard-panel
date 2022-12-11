@@ -24,10 +24,9 @@ const Dashboard = () => {
       .delete(
         `https://my-json-server.typicode.com/karolkproexe/jsonplaceholderdb/data/${selectedUserId}`
       )
-      .then((res) => {
-        dispatch(deleteUser(selectedUserId));
-        setShowModal(false);
-      });
+      .then((res) => {});
+    dispatch(deleteUser(selectedUserId));
+    setShowModal(false);
   };
 
   useEffect(() => {

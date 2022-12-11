@@ -25,7 +25,9 @@ export const userSlice = createSlice({
       return updatedData;
     },
     addUser: (state, action) => {
-      const { name, email, username, address, id } = action.payload;
+      const { name, email, username, address } = action.payload;
+      const newUserId = state.length + 1;
+
       return [
         ...state,
         {
@@ -33,7 +35,7 @@ export const userSlice = createSlice({
           email: email,
           username: username,
           address: { city: address.city },
-          id: id,
+          id: newUserId,
         },
       ];
     },

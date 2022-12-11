@@ -38,42 +38,43 @@ const UserForm = (props: UserFormProps) => {
     mode: "onChange",
   });
   const onSubmit: SubmitHandler<UserFormValues> = (data) => {
-    //Update isn't working for new created users. API returned an error 404.
+    //Update isn't working for new created users through API. API returned an error 404.
+    /* So I decided not to depend on axios call (not to wright down to own state the result from API), 
+       so all CRUD logic is done outside axios 
+   */
+
+    const sentData = {
+      name: data.name,
+      address: {
+        city: data.city,
+      },
+      email: data.email,
+      username: data.userName,
+      id: props.userData?.id,
+    };
     if (props.isEditable) {
       axios
         .put(
           `https://my-json-server.typicode.com/karolkproexe/jsonplaceholderdb/data/${props.userData?.id}`,
           {
             ...props.userData,
-            name: data.name,
-            address: {
-              city: data.city,
-            },
-            email: data.email,
-            username: data.userName,
-            id: props.userData?.id,
+            sentData,
           }
         )
-        .then((res) => {
-          dispatch(updateUserData(res.data));
-          navigate("/");
-        });
+        .then((res) => {});
+      dispatch(updateUserData(sentData));
     } else {
       axios
         .post(
           `https://my-json-server.typicode.com/karolkproexe/jsonplaceholderdb/data`,
           {
-            name: data.name,
-            address: { city: data.city },
-            email: data.email,
-            username: data.userName,
+            sentData,
           }
         )
-        .then((res) => {
-          dispatch(addUser(res.data));
-          navigate("/");
-        });
+        .then((res) => {});
+      dispatch(addUser(sentData));
     }
+    navigate("/");
   };
 
   return (
