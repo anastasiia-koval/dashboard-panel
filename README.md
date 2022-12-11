@@ -1,4 +1,4 @@
-### Dasboard tool for managing you user data.
+### Dasboard tool for managing your user data.
 
 #### How to run the project locally?
 - Clone the repo to your locall machine
