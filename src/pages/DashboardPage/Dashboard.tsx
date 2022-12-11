@@ -5,15 +5,14 @@ import "./Dashboard.scss";
 import Button from "../../components/Button/Button";
 import Title from "../../components/Title/Title";
 import Spinner from "react-bootstrap/Spinner";
-import { UserDataProps } from "../../globalInterfaces";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllUsers, deleteUser } from "../../redux/slices/userSlice";
 import ConfirmationModal from "../../components/ConfirmationModal/ConfirmationModal";
 
 const Dashboard = () => {
-  const [userData, setUserData] = useState<Array<UserDataProps>>();
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [selectedUserId, setSelectedUSerId] = useState<number>();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -31,18 +30,18 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (reduxData.length <= 0) {
+      setIsLoading(true);
       axios
         .get(
           "https://my-json-server.typicode.com/karolkproexe/jsonplaceholderdb/data"
         )
         .then((res) => {
-          setUserData(res.data);
+          setIsLoading(false);
           dispatch(getAllUsers(res.data));
         });
     }
   }, []);
-
-  if (!userData && reduxData.length === 0) {
+  if (isLoading) {
     return <Spinner animation="border" />;
   } else {
     return (

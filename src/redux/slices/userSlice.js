@@ -26,7 +26,7 @@ export const userSlice = createSlice({
     },
     addUser: (state, action) => {
       const { name, email, username, address } = action.payload;
-      const newUserId = state.length + 1;
+      const newUserId = Math.max(...state.map((user) => user.id)) + 1;
 
       return [
         ...state,
