@@ -43,7 +43,7 @@ const Table = ({ userData, handleDelete }: TableProps) => {
       ) : (
         <BootstrapTable striped hover>
           <thead>
-            <tr>
+            <tr style={{ width: "20%" }}>
               <th>ID</th>
               <th>Name</th>
               <th onClick={() => sortAlphabetically()}>

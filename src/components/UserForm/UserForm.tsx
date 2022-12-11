@@ -84,7 +84,13 @@ const UserForm = (props: UserFormProps) => {
         <Form.Control
           type="text"
           placeholder="Name*"
-          {...register("name", { required: "Name field is required" })}
+          {...register("name", {
+            required: "Name field is required",
+            maxLength: {
+              value: 30,
+              message: "The name is too long, the max length is 30 characters",
+            },
+          })}
         />
         {errors.name && (
           <Form.Text className="text-danger">{errors.name.message}</Form.Text>
@@ -118,6 +124,10 @@ const UserForm = (props: UserFormProps) => {
             minLength: {
               value: 2,
               message: "The username should contain minimum 3 characters",
+            },
+            maxLength: {
+              value: 30,
+              message: "The name is too long, the max length is 30 characters",
             },
           })}
         />
